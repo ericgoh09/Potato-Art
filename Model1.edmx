@@ -1,0 +1,505 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ArtSellModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Artist">
+          <Key>
+            <PropertyRef Name="artistID" />
+          </Key>
+          <Property Name="artistID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="artistPassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="artistEmail" Type="nvarchar" MaxLength="100" />
+          <Property Name="artistPhoneNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="artistDescription" Type="nvarchar(max)" />
+          <Property Name="artistImage" Type="image" />
+          <Property Name="artistGender" Type="nchar" MaxLength="10" />
+          <Property Name="artistName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ArtWork">
+          <Key>
+            <PropertyRef Name="awID" />
+          </Key>
+          <Property Name="awID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="awName" Type="nvarchar(max)" />
+          <Property Name="awPrice" Type="smallmoney" />
+          <Property Name="awDescription" Type="nvarchar(max)" />
+          <Property Name="awImage" Type="image" />
+          <Property Name="stockQty" Type="int" />
+          <Property Name="categoryID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="materialUsed" Type="nvarchar" MaxLength="100" />
+          <Property Name="artistID" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="categoryID" />
+          </Key>
+          <Property Name="categoryID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="categoryName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="custID" />
+          </Key>
+          <Property Name="custID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="custPassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="custName" Type="nvarchar" MaxLength="100" />
+          <Property Name="custEmail" Type="nvarchar" MaxLength="100" />
+          <Property Name="custPhoneNo" Type="nvarchar" MaxLength="20" />
+          <Property Name="custImage" Type="image" />
+          <Property Name="custGender" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="awID" />
+          </Key>
+          <Property Name="OrderID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="awID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="UnitPrice" Type="money" Nullable="false" />
+          <Property Name="Quantity" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="orders">
+          <Key>
+            <PropertyRef Name="orderID" />
+          </Key>
+          <Property Name="orderID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="custID" Type="nchar" MaxLength="10" />
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="ShipPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipEmail" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipState" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShipPostalCode" Type="int" />
+        </EntityType>
+        <EntityType Name="Shipping">
+          <Key>
+            <PropertyRef Name="shippingID" />
+          </Key>
+          <Property Name="shippingID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="addressLine1" Type="nvarchar" MaxLength="100" />
+          <Property Name="addressLine2" Type="nvarchar" MaxLength="200" />
+          <Property Name="city" Type="nvarchar" MaxLength="100" />
+          <Property Name="postcode" Type="int" />
+          <Property Name="state" Type="nvarchar" MaxLength="50" />
+          <Property Name="country" Type="nvarchar" MaxLength="50" />
+          <Property Name="type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_artistID">
+          <End Role="Artist" Type="Self.Artist" Multiplicity="0..1" />
+          <End Role="ArtWork" Type="Self.ArtWork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artist">
+              <PropertyRef Name="artistID" />
+            </Principal>
+            <Dependent Role="ArtWork">
+              <PropertyRef Name="artistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_categoryID">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="ArtWork" Type="Self.ArtWork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="categoryID" />
+            </Principal>
+            <Dependent Role="ArtWork">
+              <PropertyRef Name="categoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_custID">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="custID" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="custID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Details_awID">
+          <End Role="ArtWork" Type="Self.ArtWork" Multiplicity="1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArtWork">
+              <PropertyRef Name="awID" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="awID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Details_orderID">
+          <End Role="orders" Type="Self.orders" Multiplicity="1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="orders">
+              <PropertyRef Name="orderID" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ArtSellModelStoreContainer">
+          <EntitySet Name="Artist" EntityType="Self.Artist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArtWork" EntityType="Self.ArtWork" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shipping" EntityType="Self.Shipping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_artistID" Association="Self.FK_artistID">
+            <End Role="Artist" EntitySet="Artist" />
+            <End Role="ArtWork" EntitySet="ArtWork" />
+          </AssociationSet>
+          <AssociationSet Name="FK_categoryID" Association="Self.FK_categoryID">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="ArtWork" EntitySet="ArtWork" />
+          </AssociationSet>
+          <AssociationSet Name="FK_custID" Association="Self.FK_custID">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Details_awID" Association="Self.FK_Order_Details_awID">
+            <End Role="ArtWork" EntitySet="ArtWork" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Details_orderID" Association="Self.FK_Order_Details_orderID">
+            <End Role="orders" EntitySet="orders" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ArtSellModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Artist">
+          <Key>
+            <PropertyRef Name="artistID" />
+          </Key>
+          <Property Name="artistID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="artistPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="artistEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="artistPhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="artistDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="artistImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="artistGender" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="artistName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ArtWorks" Relationship="Self.FK_artistID" FromRole="Artist" ToRole="ArtWork" />
+        </EntityType>
+        <EntityType Name="ArtWork">
+          <Key>
+            <PropertyRef Name="awID" />
+          </Key>
+          <Property Name="awID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="awName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="awPrice" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="awDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="awImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="stockQty" Type="Int32" />
+          <Property Name="categoryID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="materialUsed" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="artistID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Artist" Relationship="Self.FK_artistID" FromRole="ArtWork" ToRole="Artist" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_categoryID" FromRole="ArtWork" ToRole="Categories" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_Order_Details_Products" FromRole="ArtWork" ToRole="OrderDetail" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="categoryID" />
+          </Key>
+          <Property Name="categoryID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="categoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ArtWorks" Relationship="Self.FK_categoryID" FromRole="Categories" ToRole="ArtWork" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="custID" />
+          </Key>
+          <Property Name="custID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="custPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="custName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="custEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="custPhoneNo" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="custImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="custGender" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="orders" Relationship="Self.FK_custID" FromRole="Customer" ToRole="orders" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="awID" />
+          </Key>
+          <Property Name="OrderID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="awID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Quantity" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="ArtWork" Relationship="Self.FK_Order_Details_Products" FromRole="OrderDetail" ToRole="ArtWork" />
+          <NavigationProperty Name="order" Relationship="ArtSellModel.FK_Order_Details_orderID" FromRole="OrderDetail" ToRole="order" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="orderID" />
+          </Key>
+          <Property Name="orderID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="custID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="ShipPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipState" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShipPostalCode" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_custID" FromRole="orders" ToRole="Customer" />
+          <NavigationProperty Name="OrderDetails" Relationship="ArtSellModel.FK_Order_Details_orderID" FromRole="order" ToRole="OrderDetail" />
+        </EntityType>
+        <EntityType Name="Shipping">
+          <Key>
+            <PropertyRef Name="shippingID" />
+          </Key>
+          <Property Name="shippingID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="addressLine1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="addressLine2" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="postcode" Type="Int32" />
+          <Property Name="state" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_artistID">
+          <End Role="Artist" Type="Self.Artist" Multiplicity="0..1" />
+          <End Role="ArtWork" Type="Self.ArtWork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artist">
+              <PropertyRef Name="artistID" />
+            </Principal>
+            <Dependent Role="ArtWork">
+              <PropertyRef Name="artistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_categoryID">
+          <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+          <End Role="ArtWork" Type="Self.ArtWork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="categoryID" />
+            </Principal>
+            <Dependent Role="ArtWork">
+              <PropertyRef Name="categoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Details_Products">
+          <End Role="ArtWork" Type="Self.ArtWork" Multiplicity="1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ArtWork">
+              <PropertyRef Name="awID" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="awID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_custID">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="custID" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="custID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ArtSellEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Artists" EntityType="Self.Artist" />
+          <EntitySet Name="ArtWorks" EntityType="Self.ArtWork" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
+          <EntitySet Name="orders" EntityType="Self.order" />
+          <EntitySet Name="Shippings" EntityType="Self.Shipping" />
+          <EntitySet Name="Tables" EntityType="Self.Table" />
+          <AssociationSet Name="FK_artistID" Association="Self.FK_artistID">
+            <End Role="Artist" EntitySet="Artists" />
+            <End Role="ArtWork" EntitySet="ArtWorks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_categoryID" Association="Self.FK_categoryID">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="ArtWork" EntitySet="ArtWorks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Details_Products" Association="Self.FK_Order_Details_Products">
+            <End Role="ArtWork" EntitySet="ArtWorks" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_custID" Association="Self.FK_custID">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Details_orderID" Association="ArtSellModel.FK_Order_Details_orderID">
+            <End Role="order" EntitySet="orders" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Order_Details_orderID">
+          <End Type="ArtSellModel.order" Role="order" Multiplicity="1" />
+          <End Type="ArtSellModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="order">
+              <PropertyRef Name="orderID" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ArtSellModelStoreContainer" CdmEntityContainer="ArtSellEntities">
+          <EntitySetMapping Name="Artists">
+            <EntityTypeMapping TypeName="ArtSellModel.Artist">
+              <MappingFragment StoreEntitySet="Artist">
+                <ScalarProperty Name="artistID" ColumnName="artistID" />
+                <ScalarProperty Name="artistPassword" ColumnName="artistPassword" />
+                <ScalarProperty Name="artistEmail" ColumnName="artistEmail" />
+                <ScalarProperty Name="artistPhoneNo" ColumnName="artistPhoneNo" />
+                <ScalarProperty Name="artistDescription" ColumnName="artistDescription" />
+                <ScalarProperty Name="artistImage" ColumnName="artistImage" />
+                <ScalarProperty Name="artistGender" ColumnName="artistGender" />
+                <ScalarProperty Name="artistName" ColumnName="artistName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArtWorks">
+            <EntityTypeMapping TypeName="ArtSellModel.ArtWork">
+              <MappingFragment StoreEntitySet="ArtWork">
+                <ScalarProperty Name="awID" ColumnName="awID" />
+                <ScalarProperty Name="awName" ColumnName="awName" />
+                <ScalarProperty Name="awPrice" ColumnName="awPrice" />
+                <ScalarProperty Name="awDescription" ColumnName="awDescription" />
+                <ScalarProperty Name="awImage" ColumnName="awImage" />
+                <ScalarProperty Name="stockQty" ColumnName="stockQty" />
+                <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+                <ScalarProperty Name="materialUsed" ColumnName="materialUsed" />
+                <ScalarProperty Name="artistID" ColumnName="artistID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ArtSellModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+                <ScalarProperty Name="categoryName" ColumnName="categoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="ArtSellModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="custID" ColumnName="custID" />
+                <ScalarProperty Name="custPassword" ColumnName="custPassword" />
+                <ScalarProperty Name="custName" ColumnName="custName" />
+                <ScalarProperty Name="custEmail" ColumnName="custEmail" />
+                <ScalarProperty Name="custPhoneNo" ColumnName="custPhoneNo" />
+                <ScalarProperty Name="custImage" ColumnName="custImage" />
+                <ScalarProperty Name="custGender" ColumnName="custGender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="ArtSellModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetail">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="awID" ColumnName="awID" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orders">
+            <EntityTypeMapping TypeName="ArtSellModel.order">
+              <MappingFragment StoreEntitySet="orders">
+                <ScalarProperty Name="orderID" ColumnName="orderID" />
+                <ScalarProperty Name="custID" ColumnName="custID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="ShipPhone" ColumnName="ShipPhone" />
+                <ScalarProperty Name="ShipEmail" ColumnName="ShipEmail" />
+                <ScalarProperty Name="ShipAddress" ColumnName="ShipAddress" />
+                <ScalarProperty Name="ShipState" ColumnName="ShipState" />
+                <ScalarProperty Name="ShipCity" ColumnName="ShipCity" />
+                <ScalarProperty Name="ShipPostalCode" ColumnName="ShipPostalCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shippings">
+            <EntityTypeMapping TypeName="ArtSellModel.Shipping">
+              <MappingFragment StoreEntitySet="Shipping">
+                <ScalarProperty Name="shippingID" ColumnName="shippingID" />
+                <ScalarProperty Name="addressLine1" ColumnName="addressLine1" />
+                <ScalarProperty Name="addressLine2" ColumnName="addressLine2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="postcode" ColumnName="postcode" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tables">
+            <EntityTypeMapping TypeName="ArtSellModel.Table">
+              <MappingFragment StoreEntitySet="Table">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

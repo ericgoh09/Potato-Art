@@ -1,0 +1,114 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Seller.master.cs" Inherits="Part_1.Seller" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+        
+
+        .navColumnStyle{
+            width:20%;
+            height:40px;
+        }
+
+        .navigationStyle{
+            color:rgb(173, 0, 0);
+            font-weight:bold;
+            font-size:small;
+            text-align:center;
+        }
+
+        .navigationStyle:hover{
+            border-bottom:2px solid rgb(173, 0, 0);
+            background-color:rgb(235, 235, 235);
+            cursor:pointer;
+        }
+
+        .navigationStyle:active{
+            opacity:0.8;
+        }
+
+        body{
+            background-color:rgb(253, 253, 253);
+            margin-top:auto;
+            margin-bottom:auto;
+            margin-right:auto;
+            margin-left:auto;
+        }
+
+        footer{
+            background-color:rgb(0, 0, 0);
+            height:100px;
+        }
+
+        .searchColumn{
+            border:1px solid rgb(190, 190, 190);
+            width:70%;
+            border-radius:4px;
+            height:45%;
+        }
+
+        .btnSearch{
+            margin-left:2%;
+        }
+
+        .sitemap{
+            margin-left:2%;
+            text-decoration:none;
+            font-family:Arial;
+            font-size:90%;
+            color:rgb(110, 110, 110);
+        }
+
+        .hyperlink{
+        text-decoration:underline;
+        color:blue;
+        margin-right:2%;
+        }
+
+        .hyperlink:hover{
+        cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <table style="width: 100%; background-color:rgb(215, 215, 215);">
+            <tr style="height:50px;">
+                <td class="navColumnStyle" style="text-align:left;" colspan="2" class="auto-style1">&nbsp;&nbsp;Potato Art</td>
+                <td class="navColumnStyle"></td>
+                <td class="navColumnStyle"></td>
+                <td class="navColumnStyle" style="text-align:right"><a class="hyperlink" onclick="location.href='Login.aspx'">Logout</a></td>
+            </tr>
+        </table>
+        <table style="width: 100%; margin-bottom:10px;">
+            <tr style="rgb(240, 240, 240);">
+                <td class="navColumnStyle; navigationStyle" style="width:20%;" onclick="location.href='MyGallery.aspx'">My Gallery</td>
+                <td class="navColumnStyle; navigationStyle" style="width:20%;" onclick="location.href='AddNewArtWork.aspx'">Add New Artwork</td>
+                <td class="navColumnStyle; navigationStyle" style="width:20%;" onclick="location.href='ManageArtWork.aspx'" >Manage Artwork</td>
+                <td class="navColumnStyle; navigationStyle" style="width:20%;" onclick="location.href='Profile.aspx'">Profile</td>
+                <td class="navColumnStyle">
+                    &nbsp;</td>
+            </tr>
+        </table>
+        <div>
+
+            <asp:SiteMapPath ID="SiteMapPath1" runat="server" CssClass="sitemap">
+            </asp:SiteMapPath>
+            <br />
+
+            <br />
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+        <footer>
+
+        </footer>
+    </form>
+</body>
+</html>

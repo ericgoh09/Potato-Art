@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="810c8b9e5b3e401ba4235385492d5157" Name="Diagram1">
+        <EntityTypeShape EntityType="ArtSellModel.Artist" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtSellModel.ArtWork" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtSellModel.Category" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtSellModel.Customer" Width="1.5" PointX="2.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtSellModel.OrderDetail" Width="1.5" PointX="6.875" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtSellModel.order" Width="1.5" PointX="4.625" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtSellModel.Shipping" Width="1.5" PointX="8.125" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArtSellModel.Table" Width="1.5" PointX="8.25" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="ArtSellModel.FK_artistID" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtSellModel.FK_categoryID" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtSellModel.FK_Order_Details_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtSellModel.FK_custID" ManuallyRouted="false" />
+        <AssociationConnector Association="ArtSellModel.FK_Order_Details_orderID" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

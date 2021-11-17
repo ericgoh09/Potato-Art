@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode url="~/homepage.aspx" title="Homepage" description="Homepage">
+    <siteMapNode url="~/MyGallery.aspx" title="My Gallery"  description="Display all seller's artwork">
+      <siteMapNode url="~/ArtWorkInformation.aspx" title="Artwork Info"  description="Display artwork details" />
+    </siteMapNode>
+    <siteMapNode url="~/AddNewArtWork.aspx" title="Add New Artwork"  description="Add new artwork" />
+    <siteMapNode url="~/ManageArtWork.aspx" title="Manage artwork"  description="Display artwork details" >
+      <siteMapNode url="~/EditArtWork.aspx" title="Edit Details"  description="Edit Arkwork Details" />
+      <siteMapNode url="~/ManageStock.aspx" title="Manage Stock"  description="Manage Stock" />
+    </siteMapNode>
+	  <siteMapNode url="~/Profile.aspx" title="Profile"  description="View Profile" />
+	  
+    <siteMapNode url="~/ArtWorkDetails.aspx" title="Artwork Details"  description="Display artwork details">
+      <siteMapNode url="~/order.aspx" title="Order details"  description="Display artwork details"/>
+    </siteMapNode>
+    <siteMapNode url="~/PaymentHistory.aspx" title="Purchase History"  description="Display artwork details"/>
+    <siteMapNode url="~/Wishlist.aspx" title="Wishlist"  description="Wishlist"/>
+    <siteMapNode url="~/DetailedWishlist.aspx" title="Detailed Wishlist"  description="Detailed Wishlist"/>
+  </siteMapNode>
+</siteMap>
